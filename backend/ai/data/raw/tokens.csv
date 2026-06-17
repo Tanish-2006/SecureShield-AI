@@ -1,0 +1,16 @@
+text,label
+Bearer eyJhbGciOiJIUzI1Ni,TOKEN_EXPOSURE
+Bearer abc123xyz987,TOKEN_EXPOSURE
+Bearer token987654321,TOKEN_EXPOSURE
+jwt_token=abc.def.xyz,TOKEN_EXPOSURE
+jwt_token=xyz.abc.def,TOKEN_EXPOSURE
+session_token=qwerty123456,TOKEN_EXPOSURE
+session_token=zxcvbn987654,TOKEN_EXPOSURE
+refresh_token=abcdef987654,TOKEN_EXPOSURE
+refresh_token=xyz123456abc,TOKEN_EXPOSURE
+access_token=token123456,TOKEN_EXPOSURE
+access_token=token987654,TOKEN_EXPOSURE
+Authorization: Bearer jwt123,TOKEN_EXPOSURE
+Authorization: Bearer jwt456,TOKEN_EXPOSURE
+oauth_token=oauth123456,TOKEN_EXPOSURE
+oauth_token=oauth987654,TOKEN_EXPOSURE
