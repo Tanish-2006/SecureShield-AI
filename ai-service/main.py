@@ -5,7 +5,10 @@ from pathlib import Path
 
 import torch
 import joblib
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification
+)
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
@@ -28,12 +31,11 @@ async def lifespan(app: FastAPI):
     global model, tokenizer, label_encoder
     logger.info("Loading AI model...")
     try:
-        model = DistilBertForSequenceClassification.from_pretrained(
-            str(MODEL_PATH),
-            torch_dtype=torch.float16,
-            low_cpu_mem_usage=True,
+        model = AutoModelForSequenceClassification.from_pretrained(
+            MODEL_PATH
         )
-        tokenizer = DistilBertTokenizer.from_pretrained(str(MODEL_PATH))
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+
         label_encoder = joblib.load(str(LABEL_ENCODER_PATH))
         model.eval()
         logger.info("AI model loaded successfully in float16")
