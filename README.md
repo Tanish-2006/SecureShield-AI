@@ -1,93 +1,65 @@
-<<<<<<< HEAD
 # 🛡️ SecureShield AI
 
-SecureShield AI is an AI-powered API security platform designed to protect AI applications from prompt injection attacks, malicious inputs, and security threats.
+SecureShield AI is an AI-powered API security platform designed to protect modern AI applications from prompt injection attacks, sensitive data exposure, and malicious requests. The platform provides real-time threat monitoring, project-based security management, API key protection, and advanced analytics through an intuitive dashboard.
 
-The platform provides real-time threat detection, prompt scanning, API key management, project-based security monitoring, and analytics through a modern dashboard.
+---
 
 ## 🚀 Features
 
-### Authentication & Security
+### 🔐 Authentication & Security
 
-* User Registration & Login
-* JWT Authentication
-* Protected Routes
-* Role-based Access Control
+* Secure User Registration & Login
+* JWT-Based Authentication
+* Protected Routes & Session Management
+* Role-Based Access Control Ready
 
-### Project Management
+### 📂 Project Management
 
 * Create and Manage Multiple Projects
-* Project-specific Security Monitoring
-* Isolated Project Data
+* Project-Based Security Isolation
+* Dedicated Security Monitoring per Project
 
-### API Key Management
+### 🔑 API Key Management
 
 * Secure API Key Storage
-* Provider-based API Key Organization
-* Project-specific API Keys
+* Project-Specific API Keys
+* API Key Tracking & Monitoring
 
-### Prompt Security Scanner
+### 🛡️ Prompt Security Scanner
 
 * Prompt Injection Detection
 * Sensitive Data Exposure Detection
-* Risk Scoring
-* Security Recommendations
+* Threat Classification
+* Risk Scoring System
+* Real-Time Security Analysis
 
-### Threat Monitoring
+### 📊 Analytics Dashboard
 
-* Threat Logging
-* Risk Categorization
-* Security Event Tracking
-* Threat History
+* Threat Overview
+* Security Metrics
+* Request Monitoring
+* Threat Activity Tracking
+* Project-Level Analytics
 
-### Analytics Dashboard
+### 📋 Threat Logging
 
-* Total Threats
-* Critical Threats
-* High Risk Threats
-* Medium Risk Threats
-* Low Risk Threats
-* Blocked Requests
-* Allowed Requests
+* Detailed Threat History
+* Timestamped Security Events
+* Threat Severity Monitoring
+* Security Audit Trail
 
-### Mobile Ready
+### 📱 Mobile Ready
 
-* Android APK Support using Capacitor
-* Responsive UI
-* Mobile-Friendly Design
-
----
-
-## 🏗️ Tech Stack
-
-### Frontend
-
-* React
-* Vite
-* React Router
-* Axios
-
-### Backend
-
-* FastAPI
-* SQLAlchemy
-* JWT Authentication
-* PostgreSQL
-
-### Mobile
-
-* Capacitor
-
-### Deployment
-
-* Vercel (Frontend)
-* Render (Backend)
+* Responsive Design
+* Capacitor Android Support
+* Mobile-Friendly Dashboard
+* Cross-Platform Architecture
 
 ---
 
-## 📂 Project Structure
+## 🏗️ Architecture
 
-```bash
+```text
 SecureShield-AI/
 │
 ├── backend/
@@ -95,6 +67,7 @@ SecureShield-AI/
 │   ├── services/
 │   ├── database/
 │   ├── core/
+│   ├── middleware/
 │   └── main.py
 │
 ├── frontend/
@@ -108,12 +81,40 @@ SecureShield-AI/
 
 ---
 
-## ⚙️ Installation
+## 💻 Tech Stack
+
+### Frontend
+
+* React
+* Vite
+* React Router
+* Axios
+* Tailwind CSS
+* Capacitor
+
+### Backend
+
+* FastAPI
+* SQLAlchemy
+* PostgreSQL
+* JWT Authentication
+* Pydantic
+
+### Security
+
+* Prompt Injection Detection
+* Threat Analysis Engine
+* API Key Protection
+* Security Logging
+
+---
+
+## ⚙️ Local Setup
 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/SecureShield-AI.git
+git clone https://github.com/Tanish-2006/SecureShield-AI.git
 cd SecureShield-AI
 ```
 
@@ -131,6 +132,18 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+Backend runs at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger Documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
 ### Frontend Setup
 
 ```bash
@@ -141,27 +154,39 @@ npm install
 npm run dev
 ```
 
----
+Frontend runs at:
 
-## 🔒 Security Features
-
-* Prompt Injection Detection
-* Threat Logging
-* JWT Authentication
-* API Key Protection
-* Risk Scoring Engine
-* Project Isolation
+```text
+http://localhost:5173
+```
 
 ---
 
-## 📈 Future Enhancements
+## 🌐 Deployment
 
-* Project Switcher
+### Backend
+
+* Render
+
+### Frontend
+
+* Vercel
+
+### Database
+
+* PostgreSQL
+
+---
+
+## 🔮 Future Enhancements
+
+* AI-Based Threat Intelligence
+* Real-Time Alert System
 * Advanced Threat Analytics
-* AI-powered Threat Classification
-* Security Alerts
-* Real-time Monitoring
-* Team Collaboration
+* Team Collaboration Features
+* Security Reports Export
+* Multi-Tenant Enterprise Support
+* AI Security Recommendations
 
 ---
 
@@ -169,17 +194,18 @@ npm run dev
 
 **Tanish Agrawal**
 
-B.Tech CSE (AI & ML)
+B.Tech (CSE - AI & ML)
 MIET College, Meerut
 
-Passionate about AI, Cybersecurity, Backend Development, and Intelligent Security Systems.
+Interested in:
+
+* Artificial Intelligence
+* Cybersecurity
+* Backend Development
+* AI Security Systems
 
 ---
 
 ## ⭐ Support
 
 If you found this project useful, consider giving it a star on GitHub.
-=======
-# SecureShield-AI
-SecureShield AI – An AI-powered API security platform for detecting prompt injection attacks, monitoring threat logs, managing API keys, and providing real-time security analytics through a modern dashboard.
->>>>>>> 2bfe7fc14adaf1fa25719f4480ae37c76f816ee9
