@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from fastapi import Depends
+from fastapi import HTTPException
 
 from sqlalchemy.orm import Session
 
@@ -14,7 +15,8 @@ from database.schemas.api_key import (
 
 from services.api_key_service import (
     create_api_key,
-    get_api_keys_by_project
+    get_api_keys_by_project,
+    delete_api_key
 )
 
 from core.dependencies import get_current_user
@@ -65,3 +67,24 @@ def get_project_api_keys(
         db,
         project_id
     )
+
+
+@router.delete("/{key_id}")
+def revoke_api_key(
+    key_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    deleted = delete_api_key(
+        db,
+        key_id,
+        current_user.id
+    )
+
+    if not deleted:
+        raise HTTPException(
+            status_code=404,
+            detail="API key not found or access denied"
+        )
+
+    return {"message": "API key revoked successfully"}

@@ -5,7 +5,9 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import DateTime
 from sqlalchemy import Boolean
 
-from datetime import datetime
+from sqlalchemy.orm import relationship
+
+from datetime import datetime, timezone
 
 from database.connection import Base
 
@@ -52,5 +54,7 @@ class APIKey(Base):
 
     created_at = Column(
         DateTime,
-        default=datetime.utcnow
+        default=lambda: datetime.now(timezone.utc)
     )
+
+    project = relationship("Project")

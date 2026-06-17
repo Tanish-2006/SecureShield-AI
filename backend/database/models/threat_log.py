@@ -4,7 +4,9 @@ from sqlalchemy import String
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 
-from datetime import datetime
+from sqlalchemy.orm import relationship
+
+from datetime import datetime, timezone
 
 from database.connection import Base
 
@@ -57,5 +59,8 @@ class ThreatLog(Base):
 
     created_at = Column(
         DateTime,
-        default=datetime.utcnow
+        default=lambda: datetime.now(timezone.utc)
     )
+
+    user = relationship("User")
+    project = relationship("Project")

@@ -31,6 +31,22 @@ def create_threat_log(
 
 def get_project_threat_logs(
     db,
+    project_id,
+    skip: int = 0,
+    limit: int = 100
+):
+
+    return db.query(
+        ThreatLog
+    ).filter(
+        ThreatLog.project_id == project_id
+    ).order_by(
+        ThreatLog.created_at.desc()
+    ).offset(skip).limit(limit).all()
+
+
+def count_project_threat_logs(
+    db,
     project_id
 ):
 
@@ -38,4 +54,4 @@ def get_project_threat_logs(
         ThreatLog
     ).filter(
         ThreatLog.project_id == project_id
-    ).all()
+    ).count()

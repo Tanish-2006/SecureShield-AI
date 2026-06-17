@@ -1,7 +1,7 @@
 from passlib.context import CryptContext
 from jose import jwt
-from jose import JWTError
-from datetime import datetime, timedelta
+from jose import JWTError, ExpiredSignatureError
+from datetime import datetime, timedelta, timezone
 from cryptography.fernet import Fernet
 
 from core.config import settings
@@ -35,7 +35,7 @@ def create_access_token(data: dict):
 
     to_encode = data.copy()
 
-    expire = datetime.utcnow() + timedelta(
+    expire = datetime.now(timezone.utc) + timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
 
@@ -59,6 +59,8 @@ def verify_token(token: str):
 
         return payload
 
+    except ExpiredSignatureError:
+        raise
     except JWTError:
         return None
 

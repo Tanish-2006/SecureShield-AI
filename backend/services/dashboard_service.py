@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from database.models.threat_log import ThreatLog
 
 
@@ -6,53 +8,34 @@ def get_dashboard_stats(
     project_id
 ):
 
-    total_threats = db.query(
-        ThreatLog
+    from sqlalchemy import text
+
+    rows = db.query(
+        ThreatLog.severity,
+        ThreatLog.action,
+        func.count(ThreatLog.id).label("cnt")
     ).filter(
         ThreatLog.project_id == project_id
-    ).count()
+    ).group_by(
+        ThreatLog.severity,
+        ThreatLog.action
+    ).all()
 
-    critical = db.query(
-        ThreatLog
-    ).filter(
-        ThreatLog.project_id == project_id,
-        ThreatLog.severity == "CRITICAL"
-    ).count()
+    severity_counts = {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0}
+    action_counts = {"BLOCK": 0, "ALLOW": 0}
+    total_threats = 0
 
-    high = db.query(
-        ThreatLog
-    ).filter(
-        ThreatLog.project_id == project_id,
-        ThreatLog.severity == "HIGH"
-    ).count()
+    for severity, action, cnt in rows:
+        severity_counts[severity] = severity_counts.get(severity, 0) + cnt
+        action_counts[action] = action_counts.get(action, 0) + cnt
+        total_threats += cnt
 
-    medium = db.query(
-        ThreatLog
-    ).filter(
-        ThreatLog.project_id == project_id,
-        ThreatLog.severity == "MEDIUM"
-    ).count()
-
-    low = db.query(
-        ThreatLog
-    ).filter(
-        ThreatLog.project_id == project_id,
-        ThreatLog.severity == "LOW"
-    ).count()
-
-    blocked = db.query(
-        ThreatLog
-    ).filter(
-        ThreatLog.project_id == project_id,
-        ThreatLog.action == "BLOCK"
-    ).count()
-
-    allowed = db.query(
-        ThreatLog
-    ).filter(
-        ThreatLog.project_id == project_id,
-        ThreatLog.action == "ALLOW"
-    ).count()
+    critical = severity_counts.get("CRITICAL", 0)
+    high = severity_counts.get("HIGH", 0)
+    medium = severity_counts.get("MEDIUM", 0)
+    low = severity_counts.get("LOW", 0)
+    blocked = action_counts.get("BLOCK", 0)
+    allowed = action_counts.get("ALLOW", 0)
 
     total_weighted = critical * 30 + high * 15 + medium * 5
     security_score = max(0, 100 - total_weighted)

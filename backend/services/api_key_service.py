@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from database.models.api_key import APIKey
+from database.models.project import Project
 
 from core.security import encrypt_api_key
 
@@ -41,3 +42,29 @@ def get_api_keys_by_project(
     ).filter(
         APIKey.project_id == project_id
     ).all()
+
+
+def delete_api_key(
+    db: Session,
+    key_id: int,
+    user_id: int
+):
+
+    key = db.query(APIKey).filter(
+        APIKey.id == key_id
+    ).first()
+
+    if not key:
+        return None
+
+    project = db.query(Project).filter(
+        Project.id == key.project_id,
+        Project.owner_id == user_id
+    ).first()
+
+    if not project:
+        return None
+
+    db.delete(key)
+    db.commit()
+    return key

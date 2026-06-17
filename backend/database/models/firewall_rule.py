@@ -2,6 +2,8 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import ForeignKey
 
+from sqlalchemy.orm import relationship
+
 from database.connection import Base
 
 
@@ -26,3 +28,5 @@ class FirewallRule(Base):
         default=70,
         nullable=False
     )
+
+    project = relationship("Project")

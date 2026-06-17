@@ -1,5 +1,6 @@
 from fastapi import Depends
 from fastapi import HTTPException
+from jose import ExpiredSignatureError
 
 from fastapi.security import OAuth2PasswordBearer
 
@@ -11,7 +12,8 @@ from database.dependencies import get_db
 from database.models.user import User
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="auth/login"
+    tokenUrl="auth/login",
+    auto_error=False
 )
 
 
@@ -20,12 +22,24 @@ def get_current_user(
     db: Session = Depends(get_db)
 ):
 
-    payload = verify_token(token)
+    if not token:
+        raise HTTPException(
+            status_code=401,
+            detail="Not authenticated"
+        )
+
+    try:
+        payload = verify_token(token)
+    except ExpiredSignatureError:
+        raise HTTPException(
+            status_code=401,
+            detail="Token has expired"
+        )
 
     if not payload:
         raise HTTPException(
             status_code=401,
-            detail="Invalid Token"
+            detail="Invalid or expired token"
         )
 
     email = payload.get("sub")
@@ -36,8 +50,8 @@ def get_current_user(
 
     if not user:
         raise HTTPException(
-            status_code=404,
-            detail="User not found"
+            status_code=401,
+            detail="Invalid credentials"
         )
 
     return user
