@@ -20,17 +20,23 @@ model = None
 tokenizer = None
 label_encoder = None
 
+torch.set_num_threads(int(os.getenv("OMP_NUM_THREADS", "2")))
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global model, tokenizer, label_encoder
     logger.info("Loading AI model...")
     try:
+        model = DistilBertForSequenceClassification.from_pretrained(
+            str(MODEL_PATH),
+            torch_dtype=torch.float16,
+            low_cpu_mem_usage=True,
+        )
         tokenizer = DistilBertTokenizer.from_pretrained(str(MODEL_PATH))
-        model = DistilBertForSequenceClassification.from_pretrained(str(MODEL_PATH))
         label_encoder = joblib.load(str(LABEL_ENCODER_PATH))
         model.eval()
-        logger.info("AI model loaded successfully")
+        logger.info("AI model loaded successfully in float16")
     except Exception as e:
         logger.error(f"Failed to load model: {e}")
         raise
