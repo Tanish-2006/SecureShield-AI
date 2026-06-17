@@ -40,3 +40,4 @@ frontend/android/local.properties
 
 # Logs
 *.log
+backend/ai/models/

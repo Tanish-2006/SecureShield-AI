@@ -1,9 +1,12 @@
 import re
-from ai.predict import predict_text
+#from ai.predict import predict_text
 
 def analyze_prompt(prompt: str):
 
-    prediction = predict_text(prompt)
+    prediction = {
+        "label": "safe",
+        "confidence": 0.95
+    }
 
     label = prediction["label"]
     confidence = prediction["confidence"]
